@@ -1,0 +1,1604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  </head>
+
+  <style>
+
+    div {
+      padding: 20px;
+    }
+
+    th {
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    table, th, td {
+    	border: 1px solid black;
+    }
+
+    h1{
+
+      padding: 20px;
+      text-align: center;
+    }
+    button{
+      padding: 5px;
+      margin: 10px;
+    }
+
+    button:hover {
+      background-color: grey;
+    }
+
+    #afficher {
+      padding: 20px;
+      font-size: 150%;
+    }
+
+  </style>
+
+  <body>
+
+  	<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="index">Accueil</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="foodweek">Calculatrice</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="manques">Nutriments</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div>
+<content>
+
+  <h1>La calculatrice alimentaire</h1>
+  <h5>Appuyer sur les aliments que vous avez consommés au courant de la journée. Ensuite, appuyer sur « Afficher les résultats ». Si vous n'êtes pas certain de la taille d'une portion, <a href="http://www.unlockfood.ca/EatRightOntario/media/ERO_PDF/Portions%20toolkit/Handy-Servings-Guide-French-Final-for-web.pdf">appuyer ici<a> pour plus d'informations. Pour savoir ce que chaque manque alimentaire signifie, <a href="manques">appuyer ici</a>.</h5>
+  <div>
+    <h2 id="mondaylackid"></h2>
+  </div>
+  <div id="afficher">
+    <button type="button" onclick="showLocalStorage()">Afficher les résultats</button>
+  </div>
+
+  <div id='button-aliments'>
+    <button onclick="addAmande()">1 portion d'AMANDE</button>
+    <button onclick="addAnanas()">1 portion d'ANANAS</button>
+    <button onclick="addAvocat()">1 AVOCAT</button>
+    <button onclick="addBanane()">1 BANANE</button>
+    <button onclick="addBetterave()">1 portion de BETTERAVE</button>
+    <button onclick="addBeurreArachide()">1 cuillère de BEURRE D'ARACHIDE</button>
+    <button onclick="addBoeuf()">1 portion de BOEUF</button>
+    <button onclick="addBrocoli()">1 BROCOLI</button>
+    <button onclick="addCerise()">1 portion de CERISE</button>
+    <button onclick="addConcombre()"> 1 CONCOMBRE</button>
+    <button onclick="addDinde()">1 portion de DINDE</button>
+    <button onclick="addFraise()">1 bol de FRAISE</button>
+    <button onclick="addFraise()">1 bol de FRAMBOISE</button>
+    <button onclick="addKiwi()">1 KIWI</button>
+    <button onclick="addJambon()">1 portion de JAMBON</button>
+    <button onclick="addLait()">1 verre de LAIT</button>
+    <button onclick="addLaitAmande()">1 verre de LAIT D'AMANDE</button>
+    <button onclick="addLaitue()">1 portion de LAITUE</button>
+    <button onclick="addLentille()">1 portion de LENTILLES</button>
+    <button onclick="addMais()">1 MAïS</button>
+    <button onclick="addMangue()">1 MANGUE</button>
+    <button onclick="addOeuf()">1 OEUF</button>
+    <button onclick="addOrange()">1 ORANGE</button>
+    <button onclick="addPain()">1 tranche de PAIN</button>
+    <button onclick="addPatate()">1 PATATE</button>
+    <button onclick="addPate()">1 bol de PATES</button>
+    <button onclick="addPeche()">1 PECHE</button>
+    <button onclick="addPoire()">1 POIRE</button>
+    <button onclick="addPoivron()">1 POIVRON</button>
+    <button onclick="addPomme()">1 POMME</button>
+    <button onclick="addPoulet()">1 portion de POULET</button>
+    <button onclick="addQuinoa()">1 portion de QUINOA</button>
+    <button onclick="addRaisin()">20 RAISINS</button>
+    <button onclick="addRiz()"> 1 bol de RIZ</button>
+    <button onclick="addTomate()">1 TOMATE</button>
+    
+
+  </div>
+</content>
+</div>
+<br>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+
+
+
+
+
+
+  function showLocalStorage(){
+
+    document.getElementById("mondaylackid").innerHTML = 'Il vous manque : '
+
+   if(modele.proteine - humain.proteine > 0){
+    document.getElementById("mondaylackid").innerHTML += "des protéines, "
+   }
+   if(modele.lipide - humain.lipide > 0){
+    document.getElementById("mondaylackid").innerHTML += "des lipides, "
+   }
+   if(modele.glucide - humain.glucide > 0){
+    document.getElementById("mondaylackid").innerHTML += "des glucide, "
+   }
+  /* if(modele.omega3 - humain.omega3 > 0){
+    document.getElementById("mondaylackid").innerHTML += "Il vous manque des omega 3, "
+   }
+   if(modele.omega6 - humain.omega6 > 0){
+    document.getElementById("mondaylackid").innerHTML += "Il vous manque des omega 6, "
+   }
+   */
+   if(modele.fibre - humain.fibre > 0){
+    document.getElementById("mondaylackid").innerHTML += "des fibre, "
+   }
+   /*if(modele.sucre - humain.sucre > 0){
+    document.getElementById("mondaylackid").innerHTML += "du sucre, "
+   }
+   if(modele.sodium - humain.sodium > 0){
+    document.getElementById("mondaylackid").innerHTML += "Il vous manque du sodium, "
+   }
+   */
+   /*if(modele.gras - humain.gras > 0){
+    document.getElementById("mondaylackid").innerHTML += "du gras, "
+   }
+   */
+   if(modele.vitA - humain.vitA > 0){
+    document.getElementById("mondaylackid").innerHTML += "des vitamines A, "
+   }
+   if(modele.vitB1 - humain.vitB1 > 0){
+    document.getElementById("mondaylackid").innerHTML += "des vitamines B1, "
+   }
+   if(modele.vitB2 - humain.vitB2 > 0){
+    document.getElementById("mondaylackid").innerHTML += "des vitamines B2, "
+   }
+   if(modele.vitB3 - humain.vitB3 > 0){
+    document.getElementById("mondaylackid").innerHTML += "des vitamines B3, "
+   }
+   if(modele.vitB5 - humain.vitB5 > 0){
+    document.getElementById("mondaylackid").innerHTML += "des vitamines B5, "
+   }
+   if(modele.vitB6 - humain.vitB6 > 0){
+    document.getElementById("mondaylackid").innerHTML += "vitamines B6, "
+   }
+
+   if(modele.vitB9 - humain.vitB9 > 0){
+    document.getElementById("mondaylackid").innerHTML += "vitamines B9, "
+   }
+
+   if(modele.vitC - humain.vitC > 0){
+    document.getElementById("mondaylackid").innerHTML += "vitamines C, "
+   }
+
+   if(modele.vitE - humain.vitE > 0){
+    document.getElementById("mondaylackid").innerHTML += "vitamines E, "
+   }
+   if(modele.vitK - humain.vitK > 0){
+    document.getElementById("mondaylackid").innerHTML += "vitamines K, "
+   }
+   if(modele.calcium - humain.calcium > 0){
+    document.getElementById("mondaylackid").innerHTML += "calcium, "
+   }
+   if(modele.fer - humain.fer > 0){
+    document.getElementById("mondaylackid").innerHTML += "du fer, "
+   }
+   if(modele.zinc - humain.zinc > 0){
+    document.getElementById("mondaylackid").innerHTML += "du zinc, "
+   }
+   if(modele.magnesium - humain.magnesium > 0){
+    document.getElementById("mondaylackid").innerHTML += " magnesium, "
+   }
+   if(modele.cuivre - humain.cuivre > 0){
+    document.getElementById("mondaylackid").innerHTML += "du cuivre, "
+   }
+   if(modele.iode - humain.iode > 0){
+    document.getElementById("mondaylackid").innerHTML += "des iodes, "
+   }
+   if(modele.manganese - humain.manganese > 0){
+    document.getElementById("mondaylackid").innerHTML += "du manganese, "
+   }
+   if(modele.phosphore - humain.phosphore > 0){
+    document.getElementById("mondaylackid").innerHTML += "du phosphore"
+   }
+
+  }
+
+
+  //Modele de nutriments a consommer par jour
+  modele = {
+    proteine : 65,//g
+    lipide : 65,
+    glucide : 300,
+    omega3 : 2,
+    omega6 :13,
+    fibre : 30,
+    sucre : 90,
+    sodium : 2.3,
+    gras : 24,
+    vitA : 0.8,//mg
+    vitB1 : 1.2,
+    vitB2 : 1.5,
+    vitB3 : 13,
+    vitB5 : 7,
+    vitB6 : 1.5,
+    vitB8 : 0.05,
+    vitB9 : 0.33,
+    vitB12 : 0.0024,
+    vitC : 90,
+    vitD : 0.01,
+    vitE : 12,
+    vitK : 0.05,
+    calcium : 1000,
+    fer : 10,
+    zinc : 11,
+    magnesium : 400,
+    cuivre : 1,
+    iode : 0.15,
+    manganese : 2.3,
+    phosphore : 700,
+    potassium : 4700
+
+  }
+
+
+
+  //Nutriments de l'humain(deleted by refresh)
+  humain = {
+    proteine : 0,//g
+    lipide : 0,
+    glucide : 0,
+    omega3 : 0,
+    omega6 : 0,
+    fibre : 0,
+    sucre : 0,
+    sodium : 0,
+    gras : 0,
+    vitA : 0,//mg
+    vitB1 : 0,
+    vitB2 : 0,
+    vitB3 : 0,
+    vitB5 : 0,
+    vitB6 : 0,
+    vitB9 : 0,
+    vitC : 0,
+    vitE : 0,
+    vitK : 0,
+    calcium : 0,
+    fer : 0,
+    zinc : 0,
+    magnesium : 0,
+    cuivre : 0,
+    iode : 0,
+    manganese : 0,
+    phosphore : 0,
+    postassium : 0
+  }
+
+/*  proteine : ,//g
+    lipide : ,
+    glucide : ,
+    omega3 : ,
+    omega6 :,
+    fibre : ,
+    sucre : ,
+    sodium : ,
+    gras : ,
+    vitA : ,//mg
+    vitB1 : ,
+    vitB2 : ,
+    vitB3 : ,
+    vitB5 : ,
+    vitB6 : ,
+    vitB8 : ,
+    vitB9 : ,
+    vitB12 : ,
+    vitC : ,
+    vitD : ,
+    vitE : ,
+    vitK : ,
+    calcium : ,
+    fer : ,
+    zinc : ,
+    magnesium : ,
+    cuivre : ,
+    iode : ,
+    manganese : ,
+    phosphore :
+*/
+
+
+
+
+  //Fonctions pour ajouter les nutriments a l'humain
+function addAmande() {
+    humain.proteine = humain.proteine + 10.5
+    humain.lipide = humain.lipide + 26.7
+    humain.glucide = humain.glucide + 4
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 5.1
+    humain.sucre = humain.sucre + 2.2
+    humain.sodium = humain.sodium + 0.04
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.0005
+    humain.vitB1 = humain.vitB1 + 0.09
+    humain.vitB2 = humain.vitB2 + 0.455
+    humain.vitB3 = humain.vitB3 + 1.7
+    humain.vitB5 = humain.vitB5 + 0.14
+    humain.vitB6 = humain.vitB6 + 0.055
+
+    humain.vitB9 = humain.vitB9 + 0.14
+
+    humain.vitC = humain.vitC + 0.25
+
+    humain.vitE = humain.vitE + 7.3
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 124
+    humain.fer = humain.fer + 1.5
+    humain.zinc = humain.zinc + 1.43
+    humain.magnesium = humain.magnesium + 116
+    humain.cuivre = humain.cuivre + 0.45
+    humain.iode = humain.iode + 0.003
+    humain.manganese = humain.manganese + 0.7
+    humain.phosphore = humain.phosphore + 208
+    humain.potassium = humain.postassium + 334
+  }
+
+  function addAnanas() {
+    humain.proteine = humain.proteine + 0.5
+    humain.lipide = humain.lipide + 0.24
+    humain.glucide = humain.glucide + 11
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.33
+    humain.sucre = humain.sucre + 10.4
+    humain.sodium = humain.sodium + 0.003
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.0035
+    humain.vitB1 = humain.vitB1 + 0.08
+    humain.vitB2 = humain.vitB2 + 0.026
+    humain.vitB3 = humain.vitB3 + 0.35
+    humain.vitB5 = humain.vitB5 + 0.19
+    humain.vitB6 = humain.vitB6 + 0.1
+
+    humain.vitB9 = humain.vitB9 + 0.015
+
+    humain.vitC = humain.vitC + 36.4
+
+    humain.vitE = humain.vitE + 0.06
+    humain.vitK = humain.vitK + 0.0007
+    humain.calcium = humain.calcium + 21.5
+    humain.fer = humain.fer + 0.25
+    humain.zinc = humain.zinc + 0.073
+    humain.magnesium = humain.magnesium + 20.3
+    humain.cuivre = humain.cuivre + 0.067
+    humain.iode = humain.iode + 0.0014
+    humain.manganese = humain.manganese + 3.61
+    humain.phosphore = humain.phosphore + 11
+    humain.potassium = humain.postassium + 142
+  }
+
+function addAvocat(){
+    humain.proteine = humain.proteine + 2.1
+    humain.lipide = humain.lipide + 19.3
+    humain.glucide = humain.glucide + 5.138
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 5.6
+    humain.sucre = humain.sucre + 1.4
+    humain.sodium = humain.sodium + 35
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.084
+    humain.vitB1 = humain.vitB1 + 0.07
+    humain.vitB2 = humain.vitB2 + 0.234
+    humain.vitB3 = humain.vitB3 + 1.68
+    humain.vitB5 = humain.vitB5 + 1.08
+    humain.vitB6 = humain.vitB6 + 0.17
+
+    humain.vitB9 = humain.vitB9 + 0.112
+
+    humain.vitC = humain.vitC + 5.698
+
+    humain.vitE = humain.vitE + 2.5
+    humain.vitK = humain.vitK + 0.0204
+    humain.calcium = humain.calcium + 15.7
+    humain.fer = humain.fer + 0.5
+    humain.zinc = humain.zinc + 0.8
+    humain.magnesium = humain.magnesium + 45.36
+    humain.cuivre = humain.cuivre + 0.35
+    humain.iode = humain.iode + 0.0014
+    humain.manganese = humain.manganese + 0.336
+    humain.phosphore = humain.phosphore + 62.16
+    humain.potassium = humain.postassium + 480.2
+  }
+
+  function addBanane() {
+    humain.proteine = humain.proteine + 1.1564
+    humain.lipide = humain.lipide + 0.295
+    humain.glucide = humain.glucide + 23.128
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.242
+    humain.sucre = humain.sucre + 17.464
+    humain.sodium = humain.sodium + 0.004484
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.03068
+    humain.vitB1 = humain.vitB1 + 0.0413
+    humain.vitB2 = humain.vitB2 + 0.05782
+    humain.vitB3 = humain.vitB3 + 0.8024
+    humain.vitB5 = humain.vitB5 + 0.354
+    humain.vitB6 = humain.vitB6 + 0.4484
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.03422
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 2.4426
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.3894
+    humain.vitK = humain.vitK + 0.00059
+    humain.calcium = humain.calcium + 4.8616
+    humain.fer = humain.fer + 0.3068
+    humain.zinc = humain.zinc + 0.177
+    humain.magnesium = humain.magnesium + 41.182
+    humain.cuivre = humain.cuivre + 0.09676
+    humain.iode = humain.iode + 0.000472
+    humain.manganese = humain.manganese + 0.4366
+    humain.phosphore = humain.phosphore + 29.146
+    humain.potassium = humain.postassium + 424.8
+  }
+
+  function addMangue() {
+    humain.proteine = humain.proteine + 1.84
+    humain.lipide = humain.lipide + 0.18
+    humain.glucide = humain.glucide + 8.56
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2
+    humain.sucre = humain.sucre + 8
+    humain.sodium = humain.sodium + 77
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.021
+    humain.vitB1 = humain.vitB1 + 0.027
+    humain.vitB2 = humain.vitB2 + 0.04
+    humain.vitB3 = humain.vitB3 + 0.33
+    humain.vitB5 = humain.vitB5 + 0.15
+    humain.vitB6 = humain.vitB6 + 0.067
+
+    humain.vitB9 = humain.vitB9 + 0.08
+
+    humain.vitC = humain.vitC + 3.6
+
+    humain.vitE = humain.vitE + 0.04
+    humain.vitK = humain.vitK + 0.0002
+    humain.calcium = humain.calcium + 19.1
+    humain.fer = humain.fer + 0.79
+    humain.zinc = humain.zinc + 0.27
+    humain.magnesium = humain.magnesium + 16.8
+    humain.cuivre = humain.cuivre + 0.053
+    humain.iode = humain.iode + 0.31
+    humain.manganese = humain.manganese + 0.45
+    humain.phosphore = humain.phosphore + 38
+    humain.potassium = humain.postassium + 305
+  }
+
+
+   function addBeurreArachide() {
+    humain.proteine = humain.proteine + 4.44
+    humain.lipide = humain.lipide + 10.5
+    humain.glucide = humain.glucide + 3.2
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1
+    humain.sucre = humain.sucre + 2.1
+    humain.sodium = humain.sodium + 0.2
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.032
+    humain.vitB2 = humain.vitB2 + 0.03
+    humain.vitB3 = humain.vitB3 + 2.82
+    humain.vitB5 = humain.vitB5 + 0.218
+    humain.vitB6 = humain.vitB6 + 0.094
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.014
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 1.38
+    humain.vitK = humain.vitK + 0.00006
+    humain.calcium = humain.calcium + 8.5
+    humain.fer = humain.fer + 0.384
+    humain.zinc = humain.zinc + 0.552
+    humain.magnesium = humain.magnesium + 34.8
+    humain.cuivre = humain.cuivre + 0.112
+    humain.iode = humain.iode + 0.0001
+    humain.manganese = humain.manganese + 0.318
+    humain.phosphore = humain.phosphore + 66.6
+    humain.potassium = humain.postassium + 125.8
+  }
+
+   function addBoeuf() {
+    humain.proteine = humain.proteine + 28.7
+    humain.lipide = humain.lipide + 4
+    humain.glucide = humain.glucide + 0.5
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0
+    humain.sucre = humain.sucre + 0
+    humain.sodium = humain.sodium + 71
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.
+    humain.vitB2 = humain.vitB2 + 0
+    humain.vitB3 = humain.vitB3 + 4.76
+    humain.vitB5 = humain.vitB5 + 0
+    humain.vitB6 = humain.vitB6 + 0.15
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 0
+    humain.fer = humain.fer + 3.18
+    humain.zinc = humain.zinc + 2.8
+    humain.magnesium = humain.magnesium + 0
+    humain.cuivre = humain.cuivre + 0
+    humain.iode = humain.iode + 0
+    humain.manganese = humain.manganese + 0
+    humain.phosphore = humain.phosphore + 0
+    humain.potassium = humain.postassium + 0
+  }
+
+  function addBrocoli() {
+    humain.proteine = humain.proteine + 1.4615
+    humain.lipide = humain.lipide + 0.1776
+    humain.glucide = humain.glucide + 0.672
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.16
+    humain.sucre = humain.sucre + 1.4878
+    humain.sodium = humain.sodium + 0.019
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.1444
+    humain.vitB1 = humain.vitB1 + 0.03
+    humain.vitB2 = humain.vitB2 + 0.048
+    humain.vitB3 = humain.vitB3 + 0.328
+    humain.vitB5 = humain.vitB5 + 0.312
+    humain.vitB6 = humain.vitB6 + 0.068
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0612
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 42.4
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.416
+    humain.vitK = humain.vitK + 0.0724
+    humain.calcium = humain.calcium + 18.36
+    humain.fer = humain.fer + 0.304
+    humain.zinc = humain.zinc + 0.16
+    humain.magnesium = humain.magnesium + 8.76
+    humain.cuivre = humain.cuivre + 0.0236
+    humain.iode = humain.iode + 0.00032
+    humain.manganese = humain.manganese + 0.16
+    humain.phosphore = humain.phosphore + 30.6
+    humain.potassium = humain.postassium + 142.8
+  }
+
+  function addCerise() {
+    humain.proteine = humain.proteine + 1.16
+    humain.lipide = humain.lipide + 0.25
+    humain.glucide = humain.glucide + 11.6
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.7
+    humain.sucre = humain.sucre + 11.6
+    humain.sodium = humain.sodium + 0.005
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.038
+    humain.vitB1 = humain.vitB1 + 0.026
+    humain.vitB2 = humain.vitB2 + 0.032
+    humain.vitB3 = humain.vitB3 + 0.18
+    humain.vitB5 = humain.vitB5 + 0.23
+    humain.vitB6 = humain.vitB6 + 0.047
+
+    humain.vitB9 = humain.vitB9 + 0.006
+
+    humain.vitC = humain.vitC + 8.5
+
+    humain.vitE = humain.vitE + 0.14
+    humain.vitK = humain.vitK + 0.0021
+    humain.calcium = humain.calcium + 15
+    humain.fer = humain.fer + 0.17
+    humain.zinc = humain.zinc + 0.054
+    humain.magnesium = humain.magnesium + 11.2
+    humain.cuivre = humain.cuivre + 0.088
+    humain.iode = humain.iode + 0.0002
+    humain.manganese = humain.manganese + 0.056
+    humain.phosphore = humain.phosphore + 24.5
+    humain.potassium = humain.postassium + 200
+  }
+
+   function addConcombre() {
+    humain.proteine = humain.proteine + 1.28
+    humain.lipide = humain.lipide + 0.22
+    humain.glucide = humain.glucide + 4.08
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.2
+    humain.sucre = humain.sucre + 2.68
+    humain.sodium = humain.sodium + 0.024
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.09
+    humain.vitB1 = humain.vitB1 + 0.044
+    humain.vitB2 = humain.vitB2 + 0.05
+    humain.vitB3 = humain.vitB3 + 0.3
+    humain.vitB5 = humain.vitB5 + 0.56
+    humain.vitB6 = humain.vitB6 + 0.074
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0246
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 16.5
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.18
+    humain.vitK = humain.vitK + 0.0328
+    humain.calcium = humain.calcium + 38.4
+    humain.fer = humain.fer + 0.26
+    humain.zinc = humain.zinc + 0.19
+    humain.magnesium = humain.magnesium + 27.2
+    humain.cuivre = humain.cuivre + 0.052
+    humain.iode = humain.iode + 0.0006
+    humain.manganese = humain.manganese + 0.17
+    humain.phosphore = humain.phosphore + 49.4
+    humain.potassium = humain.postassium + 314
+  }
+
+   function addDinde() {
+    humain.proteine = humain.proteine + 26.4
+    humain.lipide = humain.lipide + 3.84
+    humain.glucide = humain.glucide + 7.25
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0
+    humain.sucre = humain.sucre + 0
+    humain.sodium = humain.sodium + 101
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.047
+    humain.vitB2 = humain.vitB2 + 0.28
+    humain.vitB3 = humain.vitB3 + 9.5
+    humain.vitB5 = humain.vitB5 + 0.95
+    humain.vitB6 = humain.vitB6 + 0.64
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.009
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.06
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 9.66
+    humain.fer = humain.fer + 1.14
+    humain.zinc = humain.zinc + 3.75
+    humain.magnesium = humain.magnesium + 44.3
+    humain.cuivre = humain.cuivre + 0.094
+    humain.iode = humain.iode + 0.004
+    humain.manganese = humain.manganese + 0.02
+    humain.phosphore = humain.phosphore + 222
+    humain.potassium = humain.postassium + 483
+  }
+
+   function addFraise() {
+    humain.proteine = humain.proteine + 0.65
+    humain.lipide = humain.lipide + 0.18
+    humain.glucide = humain.glucide + 6.14
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.5
+    humain.sucre = humain.sucre + 4.73
+    humain.sodium = humain.sodium + 0.052
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.007
+    humain.vitB1 = humain.vitB1 + 0.023
+    humain.vitB2 = humain.vitB2 + 0.02
+    humain.vitB3 = humain.vitB3 + 0.49
+    humain.vitB5 = humain.vitB5 + 0.23
+    humain.vitB6 = humain.vitB6 + 0.047
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0705
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 67.4
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.37
+    humain.vitK = humain.vitK + 0.0111
+    humain.calcium = humain.calcium + 13.1
+    humain.fer = humain.fer + 0.18
+    humain.zinc = humain.zinc + 0.11
+    humain.magnesium = humain.magnesium + 14.1
+    humain.cuivre = humain.cuivre + 0.026
+    humain.iode = humain.iode + 0.0006
+    humain.manganese = humain.manganese + 0.3
+    humain.phosphore = humain.phosphore + 23.4
+    humain.potassium = humain.postassium + 171
+  }
+
+  function addFramboise() {
+    humain.proteine = humain.proteine + 1.28
+    humain.lipide = humain.lipide + 0.36
+    humain.glucide = humain.glucide + 4.26
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 6
+    humain.sucre = humain.sucre + 4.3
+    humain.sodium = humain.sodium + 0.003
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.012
+    humain.vitB1 = humain.vitB1 + 0.032
+    humain.vitB2 = humain.vitB2 + 0.038
+    humain.vitB3 = humain.vitB3 + 0.6
+    humain.vitB5 = humain.vitB5 + 0.33
+    humain.vitB6 = humain.vitB6 + 0.055
+
+    humain.vitB9 = humain.vitB9 + 0.021
+
+    humain.vitC = humain.vitC + 26.2
+
+    humain.vitE = humain.vitE + 0.53
+    humain.vitK = humain.vitK + 0.0078
+    humain.calcium = humain.calcium + 25
+    humain.fer = humain.fer + 0.7
+    humain.zinc = humain.zinc + 0.42
+    humain.magnesium = humain.magnesium + 22
+    humain.cuivre = humain.cuivre + 0.09
+    humain.iode = humain.iode + 0
+    humain.manganese = humain.manganese + 0.67
+    humain.phosphore = humain.phosphore + 29
+    humain.potassium = humain.postassium + 151
+  }
+
+   function addJambon() {
+    humain.proteine = humain.proteine + 20.3
+    humain.lipide = humain.lipide + 3.66
+    humain.glucide = humain.glucide + 1.03
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0.32
+    humain.sucre = humain.sucre + 0.82
+    humain.sodium = humain.sodium + 1.82
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.64
+    humain.vitB2 = humain.vitB2 + 0.27
+    humain.vitB3 = humain.vitB3 + 5.6
+    humain.vitB5 = humain.vitB5 + 0.7
+    humain.vitB6 = humain.vitB6 + 0.3
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0027
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.17
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 19
+    humain.fer = humain.fer + 0.8
+    humain.zinc = humain.zinc + 2.2
+    humain.magnesium = humain.magnesium + 22.6
+    humain.cuivre = humain.cuivre + 0.2
+    humain.iode = humain.iode + 0.006
+    humain.manganese = humain.manganese + 0.1
+    humain.phosphore = humain.phosphore + 210
+    humain.potassium = humain.postassium + 313
+  }
+
+  function addKiwi() {
+    humain.proteine = humain.proteine + 0.84
+    humain.lipide = humain.lipide + 0.8
+    humain.glucide = humain.glucide + 6.1
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.45
+    humain.sucre = humain.sucre + 5.5
+    humain.sodium = humain.sodium + 0.0086
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.036
+    humain.vitB1 = humain.vitB1 + 0.017
+    humain.vitB2 = humain.vitB2 + 0.025
+    humain.vitB3 = humain.vitB3 + 0.34
+    humain.vitB5 = humain.vitB5 + 0.18
+    humain.vitB6 = humain.vitB6 + 0.092
+
+    humain.vitB9 = humain.vitB9 + 0.0335
+
+    humain.vitC = humain.vitC + 92.7
+
+    humain.vitE = humain.vitE + 1.46
+    humain.vitK = humain.vitK + 0.041
+    humain.calcium = humain.calcium + 20
+    humain.fer = humain.fer + 0.12
+    humain.zinc = humain.zinc + 0.057
+    humain.magnesium = humain.magnesium + 10
+    humain.cuivre = humain.cuivre + 0.09
+    humain.iode = humain.iode + 0.04
+    humain.manganese = humain.manganese + 0.04
+    humain.phosphore = humain.phosphore + 23.38
+    humain.potassium = humain.postassium + 208.6
+  }
+
+  function addLait() {
+    humain.proteine = humain.proteine + 8.036
+    humain.lipide = humain.lipide + 3.8465
+    humain.glucide = humain.glucide + 11.809
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0
+    humain.sucre = humain.sucre + 11.6865
+    humain.sodium = humain.sodium + 0.2695
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.025
+    humain.vitB1 = humain.vitB1 + 0.14455
+    humain.vitB2 = humain.vitB2 + 0.441
+    humain.vitB3 = humain.vitB3 + 0.2205
+    humain.vitB5 = humain.vitB5 + 1.029
+    humain.vitB6 = humain.vitB6 + 0.0882
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0215
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 3.4055
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.294
+    humain.vitK = humain.vitK + 0.0005
+    humain.calcium = humain.calcium + 284.2
+    humain.fer = humain.fer + 0.1029
+    humain.zinc = humain.zinc + 0.9555
+    humain.magnesium = humain.magnesium + 29.4
+    humain.cuivre = humain.cuivre + 0.02058
+    humain.iode = humain.iode + 0.03
+    humain.manganese = humain.manganese + 0.00784
+    humain.phosphore = humain.phosphore + 219.8
+    humain.potassium = humain.postassium + 409
+  }
+
+  function addLaitAmande() {
+    humain.proteine = humain.proteine + 1.5
+    humain.lipide = humain.lipide + 2.25
+    humain.glucide = humain.glucide + 3.625
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1
+    humain.sucre = humain.sucre + 2.575
+    humain.sodium = humain.sodium + 0
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.025
+    humain.vitB2 = humain.vitB2 + 0.025
+    humain.vitB3 = humain.vitB3 + 0.25
+    humain.vitB5 = humain.vitB5 + 0
+    humain.vitB6 = humain.vitB6 + 0
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0025
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 1.725
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 17.5
+    humain.fer = humain.fer + 0.25
+    humain.zinc = humain.zinc + 0.25
+    humain.magnesium = humain.magnesium + 0
+    humain.cuivre = humain.cuivre + 0
+    humain.iode = humain.iode + 0
+    humain.manganese = humain.manganese + 0
+    humain.phosphore = humain.phosphore + 37.5
+    humain.potassium = humain.postassium + 62.5
+  }
+
+  function addLaitue() {
+    humain.proteine = humain.proteine + 1.3
+    humain.lipide = humain.lipide + 0.2
+    humain.glucide = humain.glucide + 1.33
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.2
+    humain.sucre = humain.sucre + 0.7
+    humain.sodium = humain.sodium + 8.5
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 3.64
+    humain.vitB1 = humain.vitB1 + 0.067
+    humain.vitB2 = humain.vitB2 + 0.077
+    humain.vitB3 = humain.vitB3 + 0.36
+    humain.vitB5 = humain.vitB5 + 0.14
+    humain.vitB6 = humain.vitB6 + 0.09
+
+    humain.vitB9 = humain.vitB9 + 0.0435
+
+    humain.vitC = humain.vitC + 11.8
+
+    humain.vitE = humain.vitE + 0.18
+    humain.vitK = humain.vitK + 0.123
+    humain.calcium = humain.calcium + 64.6
+    humain.fer = humain.fer + 1
+    humain.zinc = humain.zinc + 0.2
+    humain.magnesium = humain.magnesium + 15
+    humain.cuivre = humain.cuivre + 0.036
+    humain.iode = humain.iode + 0.00122
+    humain.manganese = humain.manganese + 0.4
+    humain.phosphore = humain.phosphore + 29.5
+    humain.potassium = humain.postassium + 200
+  }
+
+
+  function addMangue() {
+    humain.proteine = humain.proteine + 10.6
+    humain.lipide = humain.lipide + 0.5
+    humain.glucide = humain.glucide + 15
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 8.2
+    humain.sucre = humain.sucre + 0.26
+    humain.sodium = humain.sodium + 4
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.0125
+    humain.vitB1 = humain.vitB1 + 0.12
+    humain.vitB2 = humain.vitB2 + 0.01
+    humain.vitB3 = humain.vitB3 + 0.47
+    humain.vitB5 = humain.vitB5 + 0.24
+    humain.vitB6 = humain.vitB6 + 0.082
+
+    humain.vitB9 = humain.vitB9 + 0.023
+
+    humain.vitC = humain.vitC + 0.5
+
+    humain.vitE = humain.vitE + 0
+    humain.vitK = humain.vitK + 0.00256
+    humain.calcium = humain.calcium + 21
+    humain.fer = humain.fer + 2.2
+    humain.zinc = humain.zinc + 1.3
+    humain.magnesium = humain.magnesium + 25
+    humain.cuivre = humain.cuivre + 0.29
+    humain.iode = humain.iode + 0.02
+    humain.manganese = humain.manganese + 0.39
+    humain.phosphore = humain.phosphore + 110
+    humain.potassium = humain.postassium + 190
+  }
+
+
+function addMais() {
+    humain.proteine = humain.proteine + 3.36
+    humain.lipide = humain.lipide + 1.5
+    humain.glucide = humain.glucide + 11.7
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.4
+    humain.sucre = humain.sucre + 4.5
+    humain.sodium = humain.sodium + 1
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.066
+    humain.vitB1 = humain.vitB1 + 0.093
+    humain.vitB2 = humain.vitB2 + 0.057
+    humain.vitB3 = humain.vitB3 + 1.68
+    humain.vitB5 = humain.vitB5 + 0.79
+    humain.vitB6 = humain.vitB6 + 0.14
+
+    humain.vitB9 = humain.vitB9 + 0.023
+
+    humain.vitC = humain.vitC + 5.5
+
+    humain.vitE = humain.vitE + 0.09
+    humain.vitK = humain.vitK + 0.0004
+    humain.calcium = humain.calcium + 3
+    humain.fer = humain.fer + 0.45
+    humain.zinc = humain.zinc + 0.62
+    humain.magnesium = humain.magnesium + 26
+    humain.cuivre = humain.cuivre + 0.049
+    humain.iode = humain.iode + 0.001
+    humain.manganese = humain.manganese + 0.17
+    humain.phosphore = humain.phosphore + 77
+    humain.potassium = humain.postassium + 218
+  }
+
+
+  function addMangue() {
+    humain.proteine = humain.proteine + 1.1
+    humain.lipide = humain.lipide + 0.558
+    humain.glucide = humain.glucide + 23.29
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.89
+    humain.sucre = humain.sucre + 18.7
+    humain.sodium = humain.sodium + 0.006
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 1.1
+    humain.vitB1 = humain.vitB1 + 0.07
+    humain.vitB2 = humain.vitB2 + 0.08
+    humain.vitB3 = humain.vitB3 + 1.1
+    humain.vitB5 = humain.vitB5 + 0.31
+    humain.vitB6 = humain.vitB6 + 0.221
+
+    humain.vitB9 = humain.vitB9 + 0.1
+
+    humain.vitC = humain.vitC + 54
+
+    humain.vitE = humain.vitE + 1.7
+    humain.vitK = humain.vitK + 0.007
+    humain.calcium = humain.calcium + 21
+    humain.fer = humain.fer + 0.34
+    humain.zinc = humain.zinc + 0.1445
+    humain.magnesium = humain.magnesium + 16.929
+    humain.cuivre = humain.cuivre + 0.187
+    humain.iode = humain.iode + 0.0006
+    humain.manganese = humain.manganese + 0.08
+    humain.phosphore = humain.phosphore + 25.16
+    humain.potassium = humain.postassium + 233
+  }
+
+   function addOeuf() {
+    humain.proteine = humain.proteine + 36.3
+    humain.lipide = humain.lipide + 4.9
+    humain.glucide = humain.glucide + 0.135
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0
+    humain.sucre = humain.sucre + 0.135
+    humain.sodium = humain.sodium + 0.155
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.0275
+    humain.vitB2 = humain.vitB2 + 0.225
+    humain.vitB3 = humain.vitB3 + 0.0315
+    humain.vitB5 = humain.vitB5 + 0.785
+    humain.vitB6 = humain.vitB6 + 0.075
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.017
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.715
+    humain.vitK = humain.vitK + 0.00015
+    humain.calcium = humain.calcium + 38.4
+    humain.fer = humain.fer + 0.94
+    humain.zinc = humain.zinc + 0.505
+    humain.magnesium = humain.magnesium + 5.5
+    humain.cuivre = humain.cuivre + 0.0275
+    humain.iode = humain.iode + 0.0105
+    humain.manganese = humain.manganese + 0.0135
+    humain.phosphore = humain.phosphore + 102
+    humain.potassium = humain.postassium + 67
+  }
+
+   function addOrange() {
+    humain.proteine = humain.proteine + 1.54
+    humain.lipide = humain.lipide + 0.504
+    humain.glucide = humain.glucide + 11.088
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 3.08
+    humain.sucre = humain.sucre + 11.088
+    humain.sodium = humain.sodium + 0.005
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.1
+    humain.vitB1 = humain.vitB1 + 0.1218
+    humain.vitB2 = humain.vitB2 + 0.0504
+    humain.vitB3 = humain.vitB3 + 0.406
+    humain.vitB5 = humain.vitB5 + 0.308
+    humain.vitB6 = humain.vitB6 + 0.1
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.05334
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 79.8
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.518
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 41.58
+    humain.fer = humain.fer + 0.1246
+    humain.zinc = humain.zinc + 0.09
+    humain.magnesium = humain.magnesium + 17.34
+    humain.cuivre = humain.cuivre + 0.049
+    humain.iode = humain.iode + 0.00042
+    humain.manganese = humain.manganese + 0.0406
+    humain.phosphore = humain.phosphore + 25.34
+    humain.potassium = humain.postassium + 211.4
+  }
+
+  function addPain() {
+    humain.proteine = humain.proteine + 3.3
+    humain.lipide = humain.lipide + 0.4
+    humain.glucide = humain.glucide + 22
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.3
+    humain.sucre = humain.sucre + 1.328
+    humain.sodium = humain.sodium + 200
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.044
+    humain.vitB2 = humain.vitB2 + 0.021
+    humain.vitB3 = humain.vitB3 + 0.444
+    humain.vitB5 = humain.vitB5 + 0.16
+    humain.vitB6 = humain.vitB6 + 0.068
+
+    humain.vitB9 = humain.vitB9 + 0.0074
+
+    humain.vitC = humain.vitC + 0
+
+    humain.vitE = humain.vitE + 0.112
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 12.5
+    humain.fer = humain.fer + 0.528
+    humain.zinc = humain.zinc + 0.21
+    humain.magnesium = humain.magnesium + 12
+    humain.cuivre = humain.cuivre + 0.12
+    humain.iode = humain.iode + 0
+    humain.manganese = humain.manganese + 0.3
+    humain.phosphore = humain.phosphore + 45.6
+    humain.potassium = humain.postassium + 65.2
+  }
+
+
+
+  function addPatate() {
+    humain.proteine = humain.proteine + 3.2
+    humain.lipide = humain.lipide + 0.792
+    humain.glucide = humain.glucide + 22.04
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.3
+    humain.sucre = humain.sucre + 1.328
+    humain.sodium = humain.sodium + 0.628
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.044
+    humain.vitB2 = humain.vitB2 + 0.0208
+    humain.vitB3 = humain.vitB3 + 0.444
+    humain.vitB5 = humain.vitB5 + 0.164
+    humain.vitB6 = humain.vitB6 + 0.068
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.0074
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 0
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.112
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 12.48
+    humain.fer = humain.fer + 0.528
+    humain.zinc = humain.zinc + 0.208
+    humain.magnesium = humain.magnesium + 11.64
+    humain.cuivre = humain.cuivre + 0.12
+    humain.iode = humain.iode + 0
+    humain.manganese = humain.manganese + 0.284
+    humain.phosphore = humain.phosphore + 45.6
+    humain.potassium = humain.postassium + 65.2
+  }
+
+  function addPatate() {
+    humain.proteine = humain.proteine + 3.114
+    humain.lipide = humain.lipide + 0.5882
+    humain.glucide = humain.glucide + 28.891
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 3.114
+    humain.sucre = humain.sucre + 1.4878
+    humain.sodium = humain.sodium + 0.08996
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.00346
+    humain.vitB1 = humain.vitB1 + 0.13667
+    humain.vitB2 = humain.vitB2 + 0.0692
+    humain.vitB3 = humain.vitB3 + 2.99292
+    humain.vitB5 = humain.vitB5 + 0.9861
+    humain.vitB6 = humain.vitB6 + 0.5882
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.053803
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 5.0516
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.0173
+    humain.vitK = humain.vitK + 0.003633
+    humain.calcium = humain.calcium + 10.0859
+    humain.fer = humain.fer + 0.4671
+    humain.zinc = humain.zinc + 0.2595
+    humain.magnesium = humain.magnesium + 29.929
+    humain.cuivre = humain.cuivre + 0.13148
+    humain.iode = humain.iode + 0.00865
+    humain.manganese = humain.manganese + 0.12802
+    humain.phosphore = humain.phosphore + 64.356
+    humain.potassium = humain.postassium + 627.99
+  }
+
+  function addPate() {
+    humain.proteine = humain.proteine + 6
+    humain.lipide = humain.lipide + 0.83
+    humain.glucide = humain.glucide + 38
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.85
+    humain.sucre = humain.sucre + 0.9
+    humain.sodium = humain.sodium + 0
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.008
+    humain.vitB1 = humain.vitB1 + 0.034
+    humain.vitB2 = humain.vitB2 + 0.015
+    humain.vitB3 = humain.vitB3 + 0.78
+    humain.vitB5 = humain.vitB5 + 0.42
+    humain.vitB6 = humain.vitB6 + 0.033
+
+    humain.vitB9 = humain.vitB9 + 0.04
+
+    humain.vitC = humain.vitC + 0.8
+
+    humain.vitE = humain.vitE + 0.12
+    humain.vitK = humain.vitK + 0.0012
+    humain.calcium = humain.calcium + 25.5
+    humain.fer = humain.fer + 0.645
+    humain.zinc = humain.zinc + 0.705
+    humain.magnesium = humain.magnesium + 25.5
+    humain.cuivre = humain.cuivre + 0.18
+    humain.iode = humain.iode + 0.03
+    humain.manganese = humain.manganese + 0.465
+    humain.phosphore = humain.phosphore + 88.5
+    humain.potassium = humain.postassium + 51
+  }
+
+  function addPeche() {
+    humain.proteine = humain.proteine + 1.7
+    humain.lipide = humain.lipide + 0.56
+    humain.glucide = humain.glucide + 15.3
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.72
+    humain.sucre = humain.sucre + 13.9
+    humain.sodium = humain.sodium + 0.01
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.28
+    humain.vitB1 = humain.vitB1 + 0.04
+    humain.vitB2 = humain.vitB2 + 0.0828
+    humain.vitB3 = humain.vitB3 + 1.26
+    humain.vitB5 = humain.vitB5 + 0.288
+    humain.vitB6 = humain.vitB6 + 0.05
+
+    humain.vitB9 = humain.vitB9 + 0.00738
+
+    humain.vitC = humain.vitC + 11.88
+
+    humain.vitE = humain.vitE + 2.286
+    humain.vitK = humain.vitK + 0.00468
+    humain.calcium = humain.calcium + 13.176
+    humain.fer = humain.fer + 0.27
+    humain.zinc = humain.zinc + 0.216
+    humain.magnesium = humain.magnesium + 20.16
+    humain.cuivre = humain.cuivre + 0.135
+    humain.iode = humain.iode + 0.0005
+    humain.manganese = humain.manganese + 0.1152
+    humain.phosphore = humain.phosphore + 38
+    humain.potassium = humain.postassium + 387
+  }
+
+  function addPomme() {
+    humain.proteine = humain.proteine + 3.114
+    humain.lipide = humain.lipide + 0.5882
+    humain.glucide = humain.glucide + 28.891
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 3.114
+    humain.sucre = humain.sucre + 1.4878
+    humain.sodium = humain.sodium + 0.08996
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.00346
+    humain.vitB1 = humain.vitB1 + 0.13667
+    humain.vitB2 = humain.vitB2 + 0.0692
+    humain.vitB3 = humain.vitB3 + 2.99292
+    humain.vitB5 = humain.vitB5 + 0.9861
+    humain.vitB6 = humain.vitB6 + 0.5882
+
+    humain.vitB9 = humain.vitB9 + 0.053803
+
+    humain.vitC = humain.vitC + 5.0516
+
+    humain.vitE = humain.vitE + 0.0173
+    humain.vitK = humain.vitK + 0.003633
+    humain.calcium = humain.calcium + 10.0859
+    humain.fer = humain.fer + 0.4671
+    humain.zinc = humain.zinc + 0.2595
+    humain.magnesium = humain.magnesium + 29.929
+    humain.cuivre = humain.cuivre + 0.13148
+    humain.iode = humain.iode + 0.00865
+    humain.manganese = humain.manganese + 0.12802
+    humain.phosphore = humain.phosphore + 64.356
+    humain.potassium = humain.postassium + 627.99
+  }
+function addPoire(){
+    humain.proteine = humain.proteine + 0.882
+    humain.lipide = humain.lipide + 0.5
+    humain.glucide = humain.glucide + 19.6
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 5.22
+    humain.sucre = humain.sucre + 16.2
+    humain.sodium = humain.sodium + 0.01
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.0252
+    humain.vitB1 = humain.vitB1 + 0.027
+    humain.vitB2 = humain.vitB2 + 0.0378
+    humain.vitB3 = humain.vitB3 + 0.414
+    humain.vitB5 = humain.vitB5 + 0.108
+    humain.vitB6 = humain.vitB6 + 0.0396
+
+    humain.vitB9 = humain.vitB9 + 0.0207
+
+    humain.vitC = humain.vitC + 8.316
+
+    humain.vitE = humain.vitE + 0.738
+    humain.vitK = humain.vitK + 0.008
+    humain.calcium = humain.calcium + 11.63
+    humain.fer = humain.fer + 0.13
+    humain.zinc = humain.zinc + 0.1795
+    humain.magnesium = humain.magnesium + 14.8
+    humain.cuivre = humain.cuivre + 0.1278
+    humain.iode = humain.iode + 0.00072
+    humain.manganese = humain.manganese + 0.054
+    humain.phosphore = humain.phosphore + 27.72
+    humain.potassium = humain.postassium + 237.6
+  }
+
+  function addMangue() {
+    humain.proteine = humain.proteine + 1.21
+    humain.lipide = humain.lipide + 0.3
+    humain.glucide = humain.glucide + 7
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.2
+    humain.sucre = humain.sucre + 6
+    humain.sodium = humain.sodium + 0
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.01
+    humain.vitB2 = humain.vitB2 + 0.03
+    humain.vitB3 = humain.vitB3 + 0.9
+    humain.vitB5 = humain.vitB5 + 0.06
+    humain.vitB6 = humain.vitB6 + 0.31
+
+    humain.vitB9 = humain.vitB9 + 0.011
+
+    humain.vitC = humain.vitC + 81
+
+    humain.vitE = humain.vitE + 0.9
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 9
+    humain.fer = humain.fer + 0
+    humain.zinc = humain.zinc + 0.2
+    humain.magnesium = humain.magnesium + 14
+    humain.cuivre = humain.cuivre + 0.01
+    humain.iode = humain.iode + 0.001
+    humain.manganese = humain.manganese + 0.1
+    humain.phosphore = humain.phosphore + 26
+    humain.potassium = humain.postassium + 180
+  }
+
+
+  function addPoulet(){
+    humain.proteine = humain.proteine + 24.565
+    humain.lipide = humain.lipide + 8.398
+    humain.glucide = humain.glucide + 1.785
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0
+    humain.sucre = humain.sucre + 1.445
+    humain.sodium = humain.sodium + 0.34
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0
+    humain.vitB1 = humain.vitB1 + 0.051
+    humain.vitB2 = humain.vitB2 + 0.136
+    humain.vitB3 = humain.vitB3 + 7.2675
+    humain.vitB5 = humain.vitB5 + 0.8245
+    humain.vitB6 = humain.vitB6 + 0.272
+
+    humain.vitB9 = humain.vitB9 + 0.00425
+
+    humain.vitC = humain.vitC + 0
+
+    humain.vitE = humain.vitE + 0.3315
+    humain.vitK = humain.vitK + 0.00204
+    humain.calcium = humain.calcium + 16.49
+    humain.fer = humain.fer + 0.578
+    humain.zinc = humain.zinc + 1.0795
+    humain.magnesium = humain.magnesium + 33.66
+    humain.cuivre = humain.cuivre + 0.0425
+    humain.iode = humain.iode + 0.00425
+    humain.manganese = humain.manganese + 0.01105
+    humain.phosphore = humain.phosphore + 170
+    humain.potassium = humain.postassium + 351.9
+  }
+
+  function addMangue() {
+    humain.proteine = humain.proteine + 4.1
+    humain.lipide = humain.lipide + 1.9
+    humain.glucide = humain.glucide + 18.8
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 2.8
+    humain.sucre = humain.sucre + 0.87
+    humain.sodium = humain.sodium + 7
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.003
+    humain.vitB1 = humain.vitB1 + 0.11
+    humain.vitB2 = humain.vitB2 + 0.11
+    humain.vitB3 = humain.vitB3 + 0.41
+    humain.vitB5 = humain.vitB5 + 0
+    humain.vitB6 = humain.vitB6 + 0.12
+
+    humain.vitB9 = humain.vitB9 + 0.042
+
+    humain.vitC = humain.vitC + 0
+
+    humain.vitE = humain.vitE + 0.063
+    humain.vitK = humain.vitK + 0
+    humain.calcium = humain.calcium + 17
+    humain.fer = humain.fer + 1.49
+    humain.zinc = humain.zinc + 1.09
+    humain.magnesium = humain.magnesium + 64
+    humain.cuivre = humain.cuivre + 0.19
+    humain.iode = humain.iode + 0
+    humain.manganese = humain.manganese + 0.63
+    humain.phosphore = humain.phosphore + 152
+    humain.potassium = humain.postassium + 172
+  }
+
+
+function addRaisin(){
+    humain.proteine = humain.proteine + 0.72
+    humain.lipide = humain.lipide + 0.16
+    humain.glucide = humain.glucide + 15.7
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 0.9
+    humain.sucre = humain.sucre + 15.5
+    humain.sodium = humain.sodium + 2
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.039
+    humain.vitB1 = humain.vitB1 + 0.069
+    humain.vitB2 = humain.vitB2 + 0.07
+    humain.vitB3 = humain.vitB3 + 0.19
+    humain.vitB5 = humain.vitB5 + 0.05
+    humain.vitB6 = humain.vitB6 + 0.086
+
+    humain.vitB9 = humain.vitB9 + 0.002
+
+    humain.vitC = humain.vitC + 3.2
+
+    humain.vitE = humain.vitE + 0.19
+    humain.vitK = humain.vitK + 0.0146
+    humain.calcium = humain.calcium + 10
+    humain.fer = humain.fer + 0.36
+    humain.zinc = humain.zinc + 0.07
+    humain.magnesium = humain.magnesium + 7
+    humain.cuivre = humain.cuivre + 0.13
+    humain.iode = humain.iode + 0.00075
+    humain.manganese = humain.manganese + 0.071
+    humain.phosphore = humain.phosphore + 20
+    humain.potassium = humain.postassium + 191
+  }
+
+  function addRiz() {
+    humain.proteine = humain.proteine + 4.6136
+    humain.lipide = humain.lipide + 0.6478
+    humain.glucide = humain.glucide + 50.244
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.264
+    humain.sucre = humain.sucre + 0.316
+    humain.sodium = humain.sodium + 0
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.0079
+    humain.vitB1 = humain.vitB1 + 0.0474
+    humain.vitB2 = humain.vitB2 + 0.0158
+    humain.vitB3 = humain.vitB3 + 0.2528
+    humain.vitB5 = humain.vitB5 + 0.3318
+    humain.vitB6 = humain.vitB6 + 0.04582
+
+    humain.vitB9 = humain.vitB9 + 0.015642
+
+    humain.vitC = humain.vitC + 0.79
+
+    humain.vitE = humain.vitE + 0.1264
+    humain.vitK = humain.vitK + 0.001264
+    humain.calcium = humain.calcium + 22.12
+    humain.fer = humain.fer + 0.0632
+    humain.zinc = humain.zinc + 0.4108
+    humain.magnesium = humain.magnesium + 11.218
+    humain.cuivre = humain.cuivre + 0.1106
+    humain.iode = humain.iode + 0.0316
+    humain.manganese = humain.manganese + 0.2686
+    humain.phosphore = humain.phosphore + 55.3
+    humain.potassium = humain.postassium + 25.28
+  }
+
+   function addTomate() {
+    humain.proteine = humain.proteine + 1.032
+    humain.lipide = humain.lipide + 0.312
+    humain.glucide = humain.glucide + 2.712
+    //humain.omega3 = humain.omega3 + 0
+    //humain.omega6 = humain.omega6 + 0
+    humain.fibre = humain.fibre + 1.44
+    humain.sucre = humain.sucre + 2.7
+    humain.sodium = humain.sodium + 0.01
+    //humain.gras = humain.gras + 0.16262
+    humain.vitA = humain.vitA + 0.539
+    humain.vitB1 = humain.vitB1 + 0.0468
+    humain.vitB2 = humain.vitB2 + 0.0228
+    humain.vitB3 = humain.vitB3 + 0.78
+    humain.vitB5 = humain.vitB5 + 0.252
+    humain.vitB6 = humain.vitB6 + 0.0984
+    //humain.vitB8 = humain.vitB8 + 0
+    humain.vitB9 = humain.vitB9 + 0.02724
+    //humain.vitB12 = humain.vitB12 + 0
+    humain.vitC = humain.vitC + 18.6
+    //humain.vitD = humain.vitD + 0
+    humain.vitE = humain.vitE + 0.792
+    humain.vitK = humain.vitK + 0.00948
+    humain.calcium = humain.calcium + 9.768
+    humain.fer = humain.fer + 0.1044
+    humain.zinc = humain.zinc + 0.1044
+    humain.magnesium = humain.magnesium + 12.12
+    humain.cuivre = humain.cuivre + 0.0348
+    humain.iode = humain.iode + 0.00024
+    humain.manganese = humain.manganese + 0.08
+    humain.phosphore = humain.phosphore + 31.92
+    humain.potassium = humain.postassium + 307.2
+  }
+
+
+ 
+
+
+
+
+
+  function addData(){
+    var day1 = document.getElementById('day1');
+    var day2 = document.getElementById('day2');
+    var day3 = document.getElementById('day3');
+    var day4 = document.getElementById('day4');
+    var day5 = document.getElementById('day5');
+    var day6 = document.getElementById('day6');
+    var day7 = document.getElementById('day7');
+
+    var monLackID = document.getElementById('mondaylackid');
+
+
+
+
+    
+  if ('{{key}}' === 'allow'){
+    addData();
+  }
+
+  
+
+
+  };
+
+</script>
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
